@@ -1,77 +1,53 @@
-#include <iostream>
+п»ї#include <iostream>
+#include <fstream>
 #include <Windows.h>
-#include <cmath>
+#include <direct.h>
+#include <string>
 
 using namespace std;
-void print(string word);
-void exercise_1();
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int ex_num;
-	print("Введите номер практической: ");
-	cin >> ex_num;
+	cout << "Р’РІРµРґРёС‚Рµ С‚РёРї РґРµР№СЃС‚РІРёСЏ (1 - Р’РїРёСЃР°С‚СЊ, 2 - Р’С‹РІРµСЃС‚Рё СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° РІ РєРѕРЅСЃРѕР»СЊ): " << "\n";
+	
+	int action;
+	cin >> action;
 
-	try {
-		switch (ex_num) {
-			case 1:
-				exercise_1();
-				break;
-			default:
-				print("Практическая, которую вы искали не найдена!");
-				break;
-		}
-	}
-	catch (...) {
-		print("Введено не целое число!");
-	}
+	ifstream o_file("B:\\test_file.txt");
+	ofstream file;
+	string text;
+	switch (action)
+	{
+		case (1):
+			file.open("B:\\test_file.txt");
+
+			cout << "Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚: " << "\n";
+			cin.ignore();
+			do {
+				getline(cin, text);
+			} while (!text.empty());
+
+			file << text;
+
+			file.close();
+
+			break;
+		case (2):
+			while (!o_file.eof())
+			{
+				getline(o_file, text);
+				cout << text << endl;
+			}
+
+			break;
+		default:
+			cout << "РўР°РєРѕРіРѕ РґРµР№СЃС‚РІРёСЏ РЅРµС‚.";
+
+			break;
+	};
 
 	return 0;
-}
-
-void print(string word) {
-	cout << word << endl;
-}
-
-void exercise_1() {
-	int v1, v2;
-	float distance, time;
-
-	try {
-		print("Введите скорость первого автомобиля: ");
-		cin >> v1;
-
-		if (!cin) {
-			throw 0;
-		}
-
-		print("Введите скорость второго автомобиля: ");
-		cin >> v2;
-
-		if (!cin) {
-			throw 0;
-		}
-
-		print("Введите дистанцию между автомобилями: ");
-		cin >> distance;
-
-		if (!cin) {
-			throw 0;
-		}
-
-		print("Введите время: ");
-		cin >> time;
-
-		if (!cin) {
-			throw 0;
-		}
-
-		cout << "Расстояние между ними через T-часов будет равно: " << fabs(distance - (v1 + v2) * time) << endl;
-	}
-	catch (...) {
-		print("Введено не целое число!");
-	}
 }
